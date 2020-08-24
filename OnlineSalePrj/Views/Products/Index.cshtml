@@ -1,0 +1,72 @@
+﻿@model IEnumerable<OnlineSalePrj.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/_Layout.cshtml";
+}
+    <div class="container" style="padding-top:50px;">
+        
+       
+        <p style="text-align:right">
+            <a class="btn btn-success" asp-action="Create">Create New</a>
+        </p>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Qty)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Price)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductType)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ImageName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductCategory)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Qty)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductType)
+                            </td>
+                            <td>
+                                <img src="@("~/Image/" + item.ImageName)" asp-append-version="true" width="100" height="100" />
+                                @*@Html.DisplayFor(modelItem => item.ImageName)*@
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductCategory.Name)
+                            </td>
+                            <td>
+                                <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>

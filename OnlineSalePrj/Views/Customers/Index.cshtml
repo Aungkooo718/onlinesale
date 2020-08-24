@@ -1,0 +1,69 @@
+﻿@model IEnumerable<OnlineSalePrj.Models.Customer>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+    <div class="container" style="padding-top:25px">
+
+        <p style="text-align:right">
+            <a class="btn btn-primary" asp-action="Create">Create New Customer</a>
+        </p><br />
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LoginUser)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PhoneNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PostCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Address)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LoginUser)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PhoneNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PostCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+                        <td>
+                            <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                            <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+        @section scripts{
+            <script>
+                $(document).ready(function () {
+                    $('.table').DataTable();
+                });
+            </script>
+        }

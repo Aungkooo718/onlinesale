@@ -1,0 +1,96 @@
+﻿@model OnlineSalePrj.ViewModel.ProductPruchaseItemViewModel
+@{
+    ViewData["Title"] = "ProductSale";
+    Layout = "~/Views/_Layout.cshtml";
+}
+    <div class="container" style="padding-top:25px;">
+        
+        <form asp-action="ProductSale" method="post">
+            <table id="tblshow" border="1" class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <td>Image</td>
+                        <td>Product Name</td>
+                        <td>Qty</td>
+                        <td>Price</td>
+                        <td>Action</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Products)
+                    {
+                        <tr>
+                            <td>
+                                <img src="@("~/Image/"+item.ImageName)" asp-append-version="true" width=100 height=100 />
+                            </td>
+                            <td>
+                                @item.Name
+                                <input type="hidden" value="@item.Name" id="Name@(item.ID)" />
+                                <input type="hidden" value="@item.ID" />
+                                <input type="hidden" value="@item.ID" id="prod"/>
+                            </td>
+                            <td>
+                                <input type="text" value="0" id="Qty@(item.ID)" />
+                                <input type="hidden" value="@item.Qty" id="Qty@(item.ID)" />
+                                <input type="hidden" value="@item.ID" />
+                            </td>
+                            <td>
+                                @item.Price
+                                <input type="hidden" value="@item.Price" id="Price@(item.ID)" />
+                                <input type="hidden" value="@item.ID" />
+                            </td>
+                            <td>
+                                <input class="btn btn-success" type="button" value="Add"  onclick="Additem(@item.ID)" />
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+            <table width="500px" border="1" class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Total Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="addtable">
+                </tbody>
+            </table><br />
+            <input class="btn btn-primary" type="submit" value="Create" @*onclick="CustomerCreate()"*@ />
+        </form>
+        </div>
+        @section scripts{
+            <script>
+                var i = 0;
+                function Additem(k) {
+                    var name = $("#Name" + k).val();
+                    var price = $("#Price" + k).val();
+                    
+                    var qty = $("#Qty" + k).val();
+                    var totalPrice = price * qty;
+                    var tr = '<tr><td>' + name + '</label><input type="hidden" name="ItemList[' + i + '].ProductId" value="' + k + '" /></td><td>' + price + '</label><input type="hidden" name="ItemList[' + i + '].Price" value="' + price + '" /></td><td>' + qty + '</label><input type="hidden" name="ItemList[' + i + '].Qty" value="' + qty + '" /></td><td>' + totalPrice + '</label><input type="hidden" name="ItemList[' + i + '].TotalPricePerItem" value="' + totalPrice + '" /></td></label><input type="hidden" name="ItemList[' + i + '].OrderId" value="' + k + '" /></td><td><a class="btn btn-danger" onclick="Delete(this);">Delete</a></td></tr>';
+                    $("#addtable").append(tr);
+                    i++;
+                }
+                function Delete(id) {                    
+                    $(id).parent().parent().remove();
+                }
+            </script>
+            <script>
+                function CustomerCreate() {
+                    
+                    //<a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="Create"></a>
+                }
+            </script>
+            @*<script>
+                $(document).ready(function () {
+                    $('#tblshow').DataTable();
+                });
+            </script>*@
+        }
+

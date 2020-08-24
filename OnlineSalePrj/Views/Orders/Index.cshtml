@@ -1,0 +1,50 @@
+﻿@model IEnumerable<OnlineSalePrj.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/_Layout.cshtml";
+}
+    <div class="container" style="padding-top:25px">
+        <h1 style="text-align:center;margin-top:5px"  class="font-weight-bolder">OrderList</h1><br />
+
+        <p style="text-align:right">
+            <a class="btn btn-primary" asp-action="Create">Create New</a>
+        </p><br />
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SystemDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TotalAmount)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Customer)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="table-striped">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SystemDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotalAmount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Customer.Address)
+                        </td>
+                        <td>
+                            <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                            <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
